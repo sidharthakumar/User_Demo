@@ -1,4 +1,10 @@
 # import * from "types.graphql"
+# import * from "user-inputs.graphql"
 type Query{
     users: [User]
+    user(id:Float): User
+}
+
+type Mutation{
+    createUser(user:UserInput): User
 }

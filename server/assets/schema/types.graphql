@@ -1,3 +1,4 @@
+# import * from "user-inputs.graphql"
 type User {
     id: Float
     name: String
