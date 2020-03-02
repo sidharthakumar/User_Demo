@@ -6,5 +6,7 @@ type Query{
 }
 
 type Mutation{
-    createUser(user:UserInput): User
+    createUser(user: UserInput): User
+    updateUser(user: UserInput): User
+    deleteUser(id: Float): Boolean
 }

@@ -17,6 +17,14 @@ var userResolver = {
     Mutation:{
         createUser(parent, args, context){
             return userConnector.save(args).then(user => user);
+        },
+
+        updateUser(parent, args, context){
+            return userConnector.update(args).then(user => user)
+        },
+        deleteUser(parent, args, context){
+            userConnector.delete(args.id)
+            return true;
         }
     }
 }
