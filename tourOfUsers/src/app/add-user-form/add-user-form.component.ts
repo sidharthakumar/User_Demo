@@ -82,10 +82,10 @@ export class AddUserFormComponent implements OnInit {
   // **TODO **
   setValidation(){
     /*
-    const nameControl = this.form.get('companyInfo')[0]
+    const nameControl = this.form.get('companyInfo')[0] //returns undefined/null
     this.form.get('companyInfo').valueChanges.subscribe(txt => {
       if (txt[0].companyName.length > 0){
-        console.log('made it here')
+        nameControl.setValidators([Validators.required])
       }
      
     })
