@@ -30,18 +30,22 @@
       </label>
     
     
-      <button type="button" (click) = "addCompany()" kendoButton [icon] = "'user'">Add Company</button>
+      <button type="button" (click) = "addCompany()">Add Company</button>
      
-      <p *ngIf="hasCompany">Company:</p>
-      <kendo-dropdownlist [data]="companies" *ngIf="hasCompany"></kendo-dropdownlist>
+     
       
-      <label class = "k-form-field" *ngIf="hasCompany">
-        <span>
-          Street<span class = "k-required">*</span>
-        </span>
-        <input class = "k-textbox" placeholder="30 S Wacker"/>
-      </label>
-    
+      <div formArrayName = "companyInfo">
+        <div *ngFor= "let company of companyForms.controls; let i=index" [formGroupName]= "i">
+        <p *ngIf="hasCompany">Company:</p>
+           <kendo-dropdownlist [data]="companies" *ngIf="hasCompany" formControlName = "companyName"></kendo-dropdownlist>
+          <label class = "k-form-field" *ngIf="hasCompany">
+            <span>
+              Street<span class = "k-required">*</span>
+           </span>
+          <input class = "k-textbox" placeholder="30 S Wacker" formControlName = "companyAddr"/>
+        </label>
+      </div>
+    </div>
     </fieldset>
  
     <button type = "submit" [disabled] = "!form.valid" kendoButton [icon] = "'user'">Submit User</button>

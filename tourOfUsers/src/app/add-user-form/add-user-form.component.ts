@@ -1,5 +1,5 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms'
+import { FormGroup, FormControl, Validators, FormArray, FormBuilder } from '@angular/forms'
 import { UserService } from '../user.service';
 import { User } from '../user'
 
@@ -16,7 +16,7 @@ export class AddUserFormComponent implements OnInit {
   companies : String[]
   form: FormGroup;
   hasCompany: boolean = false
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private fb: FormBuilder) { }
 
   ngOnInit() {
       this.form = new FormGroup({
@@ -33,9 +33,8 @@ export class AddUserFormComponent implements OnInit {
           Validators.required,
           Validators.pattern('[^@]+@[^\.]+\..+')
         ])),
-        
-
-        companyInfo: new FormArray([])
+        // nested company form
+        companyInfo: this.fb.array([])
       });
 
       this.userService.getCompanies().subscribe((data)=>
@@ -60,12 +59,23 @@ export class AddUserFormComponent implements OnInit {
     this.newUser = {id:Number(this.form.value.id), name:this.form.value.name, email:this.form.value.email};
     this.valueChange.emit(this.newUser);
     this.form.reset();
+    this.hasCompany = false;
   }
 
+  get companyForms(){
+    return this.form.get('companyInfo') as FormArray
+  }
   addCompany(){
-    console.log('test')
-    this.hasCompany = true;
-    
 
+    const company = this.fb.group({
+      companyName: [],
+      companyAddr: []
+    })
+    if (this.companyForms.length > 0){
+      return;
+    }
+    this.companyForms.push(company)
+    this.hasCompany = true;
   }
+  
 }
