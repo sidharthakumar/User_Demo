@@ -1,3 +1,6 @@
 
+<nav>
+    <a routerLink="/info" state = "{data:{userInfo}}" routerLinkActive="active">User Contact Info</a>
+</nav>
 <app-user-grid [user_list] = "users"></app-user-grid>
 <app-add-user-form (valueChange)= 'addUser($event)'></app-add-user-form>

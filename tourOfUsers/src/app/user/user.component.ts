@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../user.service';
 import { User } from '../user'
-
+import { contactInfo } from '../contactInfo'
 
 @Component({
   selector: 'app-user',
@@ -13,18 +13,20 @@ import { User } from '../user'
 export class UserComponent implements OnInit {
 
   users: User[];
+  userInfo: contactInfo[];
   constructor(private userService: UserService) { }
   /*
   On init query graphQL server to retrieve 
   list of users and populate kendo grid
   with such users
   */
-  async ngOnInit() {
+  ngOnInit() {
     // initialize users by using getUsers service
     this.userService.getUsers().subscribe((data)=>
     {
       this.users = data.users;
     });
+
   }
   /*
   Add submitted user to grid and

@@ -7,12 +7,14 @@ import { UserComponent } from './user/user.component';
 import { GraphQLModule } from './graphql.module';
 import { HttpClientModule } from '@angular/common/http';
 import { GridModule } from '@progress/kendo-angular-grid';
+import { DropDownsModule } from '@progress/kendo-angular-dropdowns'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AddUserFormComponent } from './add-user-form/add-user-form.component';
 import { ButtonsModule } from '@progress/kendo-angular-buttons';
 import { InputsModule } from '@progress/kendo-angular-inputs';
-import { ReactiveFormsModule} from '@angular/forms'
-
+import { ReactiveFormsModule} from '@angular/forms';
+import { UserInfoGridComponent } from './user-info-grid/user-info-grid.component'
+import { RouterModule } from '@angular/router'
 
 
 
@@ -21,7 +23,8 @@ import { ReactiveFormsModule} from '@angular/forms'
     AppComponent,
     UserGridComponent,
     UserComponent,
-    AddUserFormComponent
+    AddUserFormComponent,
+    UserInfoGridComponent
   ],
   imports: [
     NgbModule,
@@ -29,10 +32,15 @@ import { ReactiveFormsModule} from '@angular/forms'
     GraphQLModule,
     HttpClientModule,
     GridModule,
+    DropDownsModule,
     BrowserAnimationsModule,
     ButtonsModule,
     InputsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RouterModule.forRoot([
+      { path: '', component: UserComponent },
+      { path: 'info', component: UserInfoGridComponent}
+    ])
   ],
   providers: [],
   bootstrap: [AppComponent]

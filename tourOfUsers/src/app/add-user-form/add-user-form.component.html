@@ -1,7 +1,7 @@
 <!-- Kendo Form to manage adding user-->
 
 <form [formGroup] = "form" 
-  (ngSubmit) = "onSubmit(form.value)"
+  (ngSubmit) = "onSubmit()"
   class = "k-form " 
   style="color: whitesmoke;">
     <fieldset>
@@ -28,7 +28,21 @@
         <input  class = "k-textbox" placeholder="example@gmail.com"  formControlName = "email" />
         <div *ngIf = "form.get('email').hasError('pattern')" style="color: red;"> please enter a valid email</div>
       </label>
+    
+    
+      <button type="button" (click) = "addCompany()" kendoButton [icon] = "'user'">Add Company</button>
+     
+      <p *ngIf="hasCompany">Company:</p>
+      <kendo-dropdownlist [data]="companies" *ngIf="hasCompany"></kendo-dropdownlist>
+      
+      <label class = "k-form-field" *ngIf="hasCompany">
+        <span>
+          Street<span class = "k-required">*</span>
+        </span>
+        <input class = "k-textbox" placeholder="30 S Wacker"/>
+      </label>
+    
     </fieldset>
-
-    <button type = "submit" [disabled] = "!form.valid" kendoButton [icon] = "'user'">Add User</button>
+ 
+    <button type = "submit" [disabled] = "!form.valid" kendoButton [icon] = "'user'">Submit User</button>
 </form>

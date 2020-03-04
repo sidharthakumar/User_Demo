@@ -12,6 +12,8 @@ import { User } from './user';
 export class UserService {
   // initialize service with apollo
   data: Observable<any>;
+  contact: Observable<any>;
+  company: Observable<any>;
   constructor(private apollo : Apollo) { }
 
   /* 
@@ -41,8 +43,8 @@ export class UserService {
   */
   mutate(user :User){
   const mutationQuery = gql`
-    mutation addUser($email: String!, $name:String!, $id:Float!){
-      addUser(email:$email, name:$name, id:$id){
+    mutation createUser($email: String!, $name:String!, $id:Float!){
+      createUser(user:{email:$email, name:$name, id:$id}){
         name
         email
         id
@@ -61,6 +63,39 @@ export class UserService {
   }).subscribe()
   }
 
+  getContactInfo(){
+    const contactQuery =  gql`
+      {
+      users{
+        id,
+        address{
+          city
+        }
+        phone
+      }
+    }
+  `;
+   this.contact =  this.apollo.
+   watchQuery({query:contactQuery}).
+   valueChanges.pipe(map(({data}) => data));
+   return this.contact
+  }
+
+  getCompanies(){
+    const contactQuery =  gql`
+      {
+        users{
+          company{
+            name
+          }
+        }
+      }
+    `;
+    this.company =  this.apollo.
+    watchQuery({query:contactQuery}).
+    valueChanges.pipe(map(({data}) => data));
+    return this.company
+  }
 }
 
 
