@@ -68,14 +68,29 @@ export class AddUserFormComponent implements OnInit {
   addCompany(){
 
     const company = this.fb.group({
-      companyName: [],
-      companyAddr: []
+      companyName: [''],
+      companyAddr: ['']
     })
     if (this.companyForms.length > 0){
       return;
     }
     this.companyForms.push(company)
     this.hasCompany = true;
+    //this.setValidation();
+
   }
+  // **TODO **
+  setValidation(){
+    /*
+    const nameControl = this.form.get('companyInfo')[0]
+    this.form.get('companyInfo').valueChanges.subscribe(txt => {
+      if (txt[0].companyName.length > 0){
+        console.log('made it here')
+      }
+     
+    })
+    */
+  }
+  
   
 }
