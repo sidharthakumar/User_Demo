@@ -84,7 +84,6 @@ export class AddUserFormComponent implements OnInit {
           streetControl.updateValueAndValidity();
         }
       }
-    })
-  
+      })
   }
 }
