@@ -34,7 +34,10 @@ export class AddUserFormComponent implements OnInit {
           Validators.pattern('[^@]+@[^\.]+\..+')
         ])),
         // nested company form
-        companyInfo: this.fb.array([])
+        companyInfo: this.fb.group({
+          name: [''],
+          street: ['']
+        })
       });
 
       this.userService.getCompanies().subscribe((data)=>
@@ -46,7 +49,6 @@ export class AddUserFormComponent implements OnInit {
         }
         this.companies = cmp;
       });
-      
   }
   /*
   Once user clicks on add user button, 
@@ -58,39 +60,31 @@ export class AddUserFormComponent implements OnInit {
     console.log(this.form.value)
     this.newUser = {id:Number(this.form.value.id), name:this.form.value.name, email:this.form.value.email};
     this.valueChange.emit(this.newUser);
+    
+    //reset form values and validators
     this.form.reset();
+    this.form.get('companyInfo').get('street').clearValidators()
+    this.form.get('companyInfo').get('street').updateValueAndValidity()
+    //reset hasCompany flag
     this.hasCompany = false;
   }
 
-  get companyForms(){
-    return this.form.get('companyInfo') as FormArray
-  }
   addCompany(){
-
-    const company = this.fb.group({
-      companyName: [''],
-      companyAddr: ['']
-    })
-    if (this.companyForms.length > 0){
-      return;
-    }
-    this.companyForms.push(company)
     this.hasCompany = true;
-    //this.setValidation();
+    this.setValidation();
+  }
 
-  }
-  // **TODO **
   setValidation(){
-    /*
-    const nameControl = this.form.get('companyInfo')[0] //returns undefined/null
-    this.form.get('companyInfo').valueChanges.subscribe(txt => {
-      if (txt[0].companyName.length > 0){
-        nameControl.setValidators([Validators.required])
+    const streetControl = this.form.get('companyInfo').get('street')
+    const nameControl = this.form.get('companyInfo').get('name')
+    nameControl.valueChanges.subscribe(name => {
+      if(name != null){
+        if (name.length > 0){
+          streetControl.setValidators([Validators.required])
+          streetControl.updateValueAndValidity();
+        }
       }
-     
     })
-    */
+  
   }
-  
-  
 }

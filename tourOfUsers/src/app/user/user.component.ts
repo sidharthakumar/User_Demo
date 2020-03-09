@@ -35,6 +35,6 @@ export class UserComponent implements OnInit {
   */
   addUser(user:User){
     this.users.push(user);
-    this.userService.mutate(user);
+    //this.userService.mutate(user);
   }
 }
