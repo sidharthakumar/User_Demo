@@ -20,8 +20,8 @@ export class UserInfoGridComponent implements OnInit {
         // get data using route resolvers
         this.route.data.subscribe((data)=>{
           var info: contactInfo[] = new Array()
-          for(var key in data.users.users){
-            var temp: contactInfo = {id: data.users.users[key].id, city: data.users.users[key].address.city, phone: data.users.users[key].phone};
+          for(var key in data.users){
+            var temp: contactInfo = {id: data.users[key].id, city: data.users[key].address.city, phone: data.users[key].phone};
             info.push(temp);
           }
           this.userInfo = info;
