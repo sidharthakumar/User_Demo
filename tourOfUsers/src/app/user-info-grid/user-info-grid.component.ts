@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { contactInfo } from '../contactInfo'
 import { UserService } from '../user.service';
+import { ActivatedRoute } from '@angular/router'
+
 
 @Component({
   selector: 'app-user-info-grid',
@@ -9,15 +11,17 @@ import { UserService } from '../user.service';
 })
 export class UserInfoGridComponent implements OnInit {
   userInfo: contactInfo[];
-  constructor(private userService: UserService) {
+  constructor(
+    private route: ActivatedRoute,
+    private userService: UserService) {
    }
 
   ngOnInit() {
-        // initialize user contact info through getContactInfo service
-        this.userService.getContactInfo().subscribe((data)=>{
+        // get data using route resolvers
+        this.route.data.subscribe((data)=>{
           var info: contactInfo[] = new Array()
-          for(var key in data.users){
-            var temp: contactInfo = {id: data.users[key].id, city: data.users[key].address.city, phone: data.users[key].phone};
+          for(var key in data.users.users){
+            var temp: contactInfo = {id: data.users.users[key].id, city: data.users.users[key].address.city, phone: data.users.users[key].phone};
             info.push(temp);
           }
           this.userInfo = info;

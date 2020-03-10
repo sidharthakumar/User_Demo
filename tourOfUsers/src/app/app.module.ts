@@ -15,6 +15,7 @@ import { InputsModule } from '@progress/kendo-angular-inputs';
 import { ReactiveFormsModule} from '@angular/forms';
 import { UserInfoGridComponent } from './user-info-grid/user-info-grid.component'
 import { RouterModule } from '@angular/router'
+import { UserResolverService } from './user-info-grid/user-resolver.service';
 
 
 
@@ -39,10 +40,14 @@ import { RouterModule } from '@angular/router'
     ReactiveFormsModule,
     RouterModule.forRoot([
       { path: '', component: UserComponent },
-      { path: 'info', component: UserInfoGridComponent}
+      { 
+        path: 'info', 
+        component: UserInfoGridComponent,
+        resolve: {users: UserResolverService}
+      }
     ])
   ],
-  providers: [],
+  providers: [UserResolverService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
