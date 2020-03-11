@@ -64,7 +64,6 @@ export class UserService {
   }
 
   getContactInfo(){
-    console.log('made it to service')
     const contactQuery =  gql`
       {
       users{
